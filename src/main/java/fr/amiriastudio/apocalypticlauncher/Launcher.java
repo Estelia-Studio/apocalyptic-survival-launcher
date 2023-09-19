@@ -13,7 +13,9 @@ import fr.flowarg.openlauncherlib.NoFramework;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthResult;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthenticationException;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthenticator;
-import fr.theshark34.openlauncherlib.minecraft.*;
+import fr.theshark34.openlauncherlib.minecraft.AuthInfos;
+import fr.theshark34.openlauncherlib.minecraft.GameFolder;
+import fr.theshark34.openlauncherlib.minecraft.util.GameDirGenerator;
 import fr.theshark34.openlauncherlib.util.CrashReporter;
 
 import java.io.File;
@@ -22,8 +24,8 @@ import java.util.List;
 
 public class Launcher {
 
-    private static GameInfos gameInfos = new GameInfos("Apocalyptic Survival Launcher", new GameVersion("1.16.5", GameType.V1_13_HIGHER_FORGE), new GameTweak[]{GameTweak.FORGE});
-    private static Path path = gameInfos.getGameDir();
+    //private static GameInfos gameInfos = new GameInfos("Apocalyptic Survival Launcher", new GameVersion("1.16.5", GameType.V1_13_HIGHER_FORGE), new GameTweak[]{GameTweak.FORGE});
+    private static Path path = GameDirGenerator.createGameDir("Apocalyptic Survival Launcher", true);
     public static File crashFile = new File(String.valueOf(path), "crashes");
 
     private static CrashReporter reporter = new CrashReporter(String.valueOf(crashFile), path);
@@ -31,7 +33,7 @@ public class Launcher {
     public static void auth() throws MicrosoftAuthenticationException {
         MicrosoftAuthenticator microsoftAuthenticator = new MicrosoftAuthenticator();
         final String refresh_token = Frame.getSaver().get("refresh_token");
-        MicrosoftAuthResult result = null;
+        MicrosoftAuthResult result;
         if (refresh_token != null && !refresh_token.isEmpty()) {
             result = microsoftAuthenticator.loginWithRefreshToken(refresh_token);
             authInfos = new AuthInfos(result.getProfile().getName(), result.getAccessToken(), result.getProfile().getId());
@@ -64,5 +66,9 @@ public class Launcher {
     }
     public static Path getPath() {
         return path;
+    }
+
+    public static AuthInfos getAuthInfos() {
+        return authInfos;
     }
 }

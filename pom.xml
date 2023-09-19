@@ -23,9 +23,14 @@
 
     <dependencies>
         <dependency>
+            <groupId>fr.theshark34.swinger</groupId>
+            <artifactId>swinger</artifactId>
+            <version>1.0.1-BETA</version>
+        </dependency>
+        <dependency>
             <groupId>fr.flowarg</groupId>
             <artifactId>openlauncherlib</artifactId>
-            <version>3.2.5</version>
+            <version>3.2.6</version>
         </dependency>
         <dependency>
             <groupId>fr.flowarg</groupId>

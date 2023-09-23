@@ -41,7 +41,6 @@ public class Launcher {
             result = microsoftAuthenticator.loginWithWebview();
             Frame.getSaver().set("refresh_token", result.getRefreshToken());
             authInfos = new AuthInfos(result.getProfile().getName(), result.getAccessToken(), result.getProfile().getId());
-            System.exit(0);
         }
     }
 

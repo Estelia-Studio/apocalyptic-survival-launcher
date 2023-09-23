@@ -1,6 +1,7 @@
 package fr.amiriastudio.apocalypticlauncher;
 
 import fr.theshark34.openlauncherlib.util.Saver;
+import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.util.WindowMover;
 
 import javax.imageio.ImageIO;
@@ -31,6 +32,8 @@ public class Frame extends JFrame {
         WindowMover mover = new WindowMover(this);
         this.addMouseListener(mover);
         this.addMouseMotionListener(mover);
+
+        this.setBackground(Swinger.TRANSPARENT);
 
         this.setVisible(true);
     }

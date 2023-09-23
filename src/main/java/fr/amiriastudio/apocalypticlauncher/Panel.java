@@ -2,6 +2,7 @@ package fr.amiriastudio.apocalypticlauncher;
 
 import fr.litarvan.openauth.microsoft.MicrosoftAuthenticationException;
 import fr.theshark34.openlauncherlib.util.ramselector.RamSelector;
+import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
@@ -43,8 +44,7 @@ public class Panel extends JPanel implements SwingerEventListener {
     @Override
     public void paintComponent (Graphics g) {
         super.paintComponent(g);
-
-        g.drawImage(background, 0, 0, this.getWidth(), this.getHeight(), this);
+        g.drawImage(background, 0, 0, this.getWidth(), this.getHeight(),this);
     }
 
     @Override

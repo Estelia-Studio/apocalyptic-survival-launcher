@@ -18,6 +18,7 @@ public class Panel extends JPanel implements SwingerEventListener {
 
     private Image background = getImage("launcher_apo_home.png");
     private STexturedButton play1 = new STexturedButton(getBufferedImage("launcher_apo_play1.png"), getBufferedImage("launcher_apo_play2.png"));
+    private STexturedButton launching = new STexturedButton(getBufferedImage("launcher_apo_launching.png"), getBufferedImage("launcher_apo_launching.png"));
     private STexturedButton quit = new STexturedButton(getBufferedImage("launcher_apo_quit1.png"), getBufferedImage("launcher_apo_quit2.png"));
     private STexturedButton ram = new STexturedButton(getBufferedImage("launcher_apo_ram1.png"), getBufferedImage("launcher_apo_ram2.png"));
     private RamSelector ramSelector = new RamSelector(Frame.getRamFile());
@@ -28,6 +29,10 @@ public class Panel extends JPanel implements SwingerEventListener {
         play1.setLocation(540, 507);
         play1.addEventListener(this);
         this.add(play1);
+
+        launching.setBounds(300, 150);
+        launching.setLocation(490, 310);
+        launching.addEventListener(this);
 
         quit.setBounds(34, 33);
         quit.setLocation(1215, 10);
@@ -54,6 +59,8 @@ public class Panel extends JPanel implements SwingerEventListener {
         } else if (swingerEvent.getSource() == play1) {
             ramSelector.save();
             this.play1.setEnabled(false);
+            this.add(launching);
+            this.launching.setEnabled(true);
 
             new Thread(() -> {
                 try {
@@ -65,7 +72,6 @@ public class Panel extends JPanel implements SwingerEventListener {
                     Launcher.getReporter().catchError(e, "Impossible de lancer le launcher");
                 }
             }).start();
-            this.play1.setEnabled(true);
         } else if (swingerEvent.getSource() == ram) {
             ramSelector.display();
         }

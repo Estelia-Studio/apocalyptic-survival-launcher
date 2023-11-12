@@ -6,10 +6,17 @@ import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
 
 import static fr.amiriastudio.apocalypticlauncher.Frame.getBufferedImage;
 import static fr.amiriastudio.apocalypticlauncher.Frame.getImage;
@@ -18,26 +25,63 @@ public class Panel extends JPanel implements SwingerEventListener {
 
     private Image background = getImage("launcher_apo_home.png");
     private STexturedButton play1 = new STexturedButton(getBufferedImage("launcher_apo_play1.png"), getBufferedImage("launcher_apo_play2.png"));
+    private STexturedButton incorrect_version = new STexturedButton(getBufferedImage("launcher_apo_incorrect_version.png"), getBufferedImage("launcher_apo_incorrect_version.png"));
     private STexturedButton quit = new STexturedButton(getBufferedImage("launcher_apo_quit1.png"), getBufferedImage("launcher_apo_quit2.png"));
     private STexturedButton ram = new STexturedButton(getBufferedImage("launcher_apo_ram1.png"), getBufferedImage("launcher_apo_ram2.png"));
     private RamSelector ramSelector = new RamSelector(Frame.getRamFile());
     public Panel() throws IOException {
+        String launcher_version = "1.2.0";
+        String debug = "true";
+
         this.setLayout(null);
+
+        incorrect_version.setBounds(600, 350);
+        incorrect_version.setLocation(340, 307);
+        incorrect_version.addEventListener(this);
+        this.add(incorrect_version);
 
         play1.setBounds(200, 91);
         play1.setLocation(540, 507);
         play1.addEventListener(this);
         this.add(play1);
 
-        quit.setBounds(34, 33);
-        quit.setLocation(1215, 10);
-        quit.addEventListener(this);
-        this.add(quit);
-
         ram.setBounds(100, 100);
         ram.setLocation(1170, 70);
         ram.addEventListener(this);
         this.add(ram);
+
+        JSONParser parser = new JSONParser();
+        try {
+            URL url = new URL("https://apocalyptic-survival.wstr.fr/public/launcher-version.json");
+            InputStream is = url.openStream();
+            JSONObject jsonObject = (JSONObject) parser.parse(new InputStreamReader(is));
+            String version = (String) jsonObject.get("version");
+            System.out.println("Version Serveur: " + version);
+            System.out.println("Version CLient: " + launcher_version);
+            if (version.equals(launcher_version)) {
+                this.incorrect_version.setVisible(false);
+                this.play1.setVisible(true);
+                this.ram.setVisible(true);
+            } else {
+                if (debug.equals("false")) {
+                    this.incorrect_version.setVisible(true);
+                    this.play1.setVisible(false);
+                    this.ram.setVisible(false);
+                } else {
+                    this.incorrect_version.setVisible(false);
+                    this.play1.setVisible(true);
+                    this.ram.setVisible(true);
+                }
+            }
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        quit.setBounds(34, 33);
+        quit.setLocation(1215, 10);
+        quit.addEventListener(this);
+        this.add(quit);
 
     }
 
@@ -53,7 +97,7 @@ public class Panel extends JPanel implements SwingerEventListener {
             System.exit(0);
         } else if (swingerEvent.getSource() == play1) {
             ramSelector.save();
-            this.play1.setEnabled(false);
+            this.play1.setVisible(false);
 
             new Thread(() -> {
                 try {
@@ -65,7 +109,7 @@ public class Panel extends JPanel implements SwingerEventListener {
                     Launcher.getReporter().catchError(e, "Impossible de lancer le launcher");
                 }
             }).start();
-            this.play1.setEnabled(true);
+            this.play1.setVisible(true);
         } else if (swingerEvent.getSource() == ram) {
             ramSelector.display();
         }

@@ -31,7 +31,7 @@ public class Panel extends JPanel implements SwingerEventListener {
     private RamSelector ramSelector = new RamSelector(Frame.getRamFile());
     public Panel() throws IOException {
         String launcher_version = "1.2.0";
-        String debug = "true";
+        String debug = "false";
 
         this.setLayout(null);
 

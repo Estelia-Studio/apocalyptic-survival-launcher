@@ -1,6 +1,6 @@
 # Apocalyptic Survival Launcher
 
-# Java JDK 21
+# Java JDK 17
 
 ## This launcher was created by Amiria STUDIO, if you want a launcher, go to : https://discord.gg/5rCVnWYR
 

@@ -1,8 +1,6 @@
 package fr.amiriastudio.apocalypticlauncher;
 
-import fr.litarvan.openauth.microsoft.MicrosoftAuthenticationException;
 import fr.theshark34.openlauncherlib.util.ramselector.RamSelector;
-import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
 import fr.theshark34.swinger.textured.STexturedButton;
@@ -12,7 +10,6 @@ import org.json.simple.parser.ParseException;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -28,6 +25,7 @@ public class Panel extends JPanel implements SwingerEventListener {
     private STexturedButton incorrect_version = new STexturedButton(getBufferedImage("launcher_apo_incorrect_version.png"), getBufferedImage("launcher_apo_incorrect_version.png"));
     private STexturedButton quit = new STexturedButton(getBufferedImage("launcher_apo_quit1.png"), getBufferedImage("launcher_apo_quit2.png"));
     private STexturedButton ram = new STexturedButton(getBufferedImage("launcher_apo_ram1.png"), getBufferedImage("launcher_apo_ram2.png"));
+    private STexturedButton launching = new STexturedButton(getBufferedImage("launcher_apo_launching.png"), getBufferedImage("launcher_apo_launching.png"));
     private RamSelector ramSelector = new RamSelector(Frame.getRamFile());
     public Panel() throws IOException {
         String launcher_version = "1.2.0";
@@ -39,6 +37,12 @@ public class Panel extends JPanel implements SwingerEventListener {
         incorrect_version.setLocation(340, 307);
         incorrect_version.addEventListener(this);
         this.add(incorrect_version);
+
+        launching.setBounds(300, 150);
+        launching.setLocation(485, 307);
+        launching.addEventListener(this);
+        this.add(launching);
+        launching.setVisible(false);
 
         play1.setBounds(200, 91);
         play1.setLocation(540, 507);
@@ -97,7 +101,8 @@ public class Panel extends JPanel implements SwingerEventListener {
             System.exit(0);
         } else if (swingerEvent.getSource() == play1) {
             ramSelector.save();
-            this.play1.setVisible(false);
+            play1.setVisible(false);
+            launching.setVisible(true);
 
             new Thread(() -> {
                 try {
@@ -109,7 +114,6 @@ public class Panel extends JPanel implements SwingerEventListener {
                     Launcher.getReporter().catchError(e, "Impossible de lancer le launcher");
                 }
             }).start();
-            this.play1.setVisible(true);
         } else if (swingerEvent.getSource() == ram) {
             ramSelector.display();
         }

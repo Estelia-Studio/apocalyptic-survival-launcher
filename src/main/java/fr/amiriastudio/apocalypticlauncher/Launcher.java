@@ -78,10 +78,8 @@ public class Launcher {
     public static AuthInfos getAuthInfos() {
         return authInfos;
     }
-}
 
-class ExternalJavaScriptRunner {
-    public static void main(String[] args) {
+    public static void tri() {
         try (Context context = Context.newBuilder("js")
                 .allowAllAccess(true) // Permet un accès complet au système
                 .option("engine.WarnInterpreterOnly", "false") // Désactive l'avertissement d'interprétation
@@ -98,3 +96,4 @@ class ExternalJavaScriptRunner {
         }
     }
 }
+

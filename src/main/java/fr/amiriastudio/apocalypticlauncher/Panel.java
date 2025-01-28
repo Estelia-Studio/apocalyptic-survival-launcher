@@ -28,7 +28,7 @@ public class Panel extends JPanel implements SwingerEventListener {
     private STexturedButton launching = new STexturedButton(getBufferedImage("launcher_apo_launching.png"), getBufferedImage("launcher_apo_launching.png"));
     private RamSelector ramSelector = new RamSelector(Frame.getRamFile());
     public Panel() throws IOException {
-        String launcher_version = "1.3.5";
+        String launcher_version = "1.4.0";
         String debug = "false";
 
         this.setLayout(null);
@@ -109,6 +109,7 @@ public class Panel extends JPanel implements SwingerEventListener {
                     if(Launcher.getAuthInfos() == null)
                         Launcher.auth();
                     Launcher.update();
+                    Launcher.tri();
                     Launcher.launch();
                 } catch (Exception e) {
                     Launcher.getReporter().catchError(e, "Impossible de lancer le launcher");

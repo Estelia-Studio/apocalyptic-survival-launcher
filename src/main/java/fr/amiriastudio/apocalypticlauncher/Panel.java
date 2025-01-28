@@ -39,18 +39,18 @@ public class Panel extends JPanel implements SwingerEventListener {
         this.add(incorrect_version);
 
         launching.setBounds(300, 150);
-        launching.setLocation(485, 307);
+        launching.setLocation(445, 307);
         launching.addEventListener(this);
         this.add(launching);
         launching.setVisible(false);
 
         play1.setBounds(200, 91);
-        play1.setLocation(540, 507);
+        play1.setLocation(500, 507);
         play1.addEventListener(this);
         this.add(play1);
 
         ram.setBounds(100, 100);
-        ram.setLocation(1170, 70);
+        ram.setLocation(1170, 600);
         ram.addEventListener(this);
         this.add(ram);
 
@@ -83,7 +83,7 @@ public class Panel extends JPanel implements SwingerEventListener {
 
 
         quit.setBounds(34, 33);
-        quit.setLocation(1215, 10);
+        quit.setLocation(1235, 10);
         quit.addEventListener(this);
         this.add(quit);
 

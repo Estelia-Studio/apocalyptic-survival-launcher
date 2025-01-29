@@ -1,8 +1,10 @@
 package fr.amiriastudio.apocalypticlauncher;
 
+import com.sun.tools.javac.Main;
 import fr.flowarg.flowupdater.FlowUpdater;
 import fr.flowarg.flowupdater.download.json.CurseFileInfo;
 import fr.flowarg.flowupdater.download.json.CurseModPackInfo;
+import fr.flowarg.flowupdater.download.json.ExternalFile;
 import fr.flowarg.flowupdater.utils.ModFileDeleter;
 import fr.flowarg.flowupdater.utils.UpdaterOptions;
 import fr.flowarg.flowupdater.versions.VanillaVersion;
@@ -16,12 +18,13 @@ import fr.theshark34.openlauncherlib.minecraft.AuthInfos;
 import fr.theshark34.openlauncherlib.minecraft.GameFolder;
 import fr.theshark34.openlauncherlib.minecraft.util.GameDirGenerator;
 import fr.theshark34.openlauncherlib.util.CrashReporter;
+
+import javax.imageio.ImageIO;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.File;
+import java.awt.*;
+import java.io.*;
 import java.nio.file.Path;
 import java.util.List;
 import java.nio.file.Paths;
@@ -77,23 +80,6 @@ public class Launcher {
 
     public static AuthInfos getAuthInfos() {
         return authInfos;
-    }
-
-    public static void tri() {
-        try (Context context = Context.newBuilder("js")
-                .allowAllAccess(true) // Permet un accès complet au système
-                .option("engine.WarnInterpreterOnly", "false") // Désactive l'avertissement d'interprétation
-                .build()) {
-            // Charger et exécuter le fichier JavaScript
-            File scriptFile = new File("src/main/resources/tri.js");
-            Source source = Source.newBuilder("js", scriptFile).build();
-            Value result = context.eval(source);
-
-            // Si le script retourne une valeur
-            System.out.println("Résultat : " + result);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
     }
 }
 

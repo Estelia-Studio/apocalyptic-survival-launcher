@@ -60,7 +60,7 @@ public class Launcher {
         UpdaterOptions options = new UpdaterOptions.UpdaterOptionsBuilder().build();
 
         final CurseFileInfo curseModPackInfo = CurseFileInfo.getFilesFromJson("https://apocalyptic-survival.wstr.fr/public/launcher.json").get(0);
-        FabricVersion version = new FabricVersionBuilder().withCurseModPack(new CurseModPackInfo(curseModPackInfo.getProjectID(), curseModPackInfo.getFileID(), true)).withFabricVersion("0.16.9").withFileDeleter(new ModFileDeleter(true)).build();
+        FabricVersion version = new FabricVersionBuilder().withCurseModPack(new CurseModPackInfo(curseModPackInfo.getProjectID(), curseModPackInfo.getFileID(), true)).withFabricVersion("0.16.13").withFileDeleter(new ModFileDeleter(true)).build();
 
         FlowUpdater updater = new FlowUpdater.FlowUpdaterBuilder().withVanillaVersion(vanillaVersion).withUpdaterOptions(options).withModLoaderVersion(version).build();
         updater.update(path);
@@ -69,7 +69,7 @@ public class Launcher {
     public static void launch() throws Exception {
         NoFramework noFramework = new NoFramework(path, authInfos, GameFolder.FLOW_UPDATER);
         noFramework.getAdditionalVmArgs().addAll(List.of(Frame.getInstance().getPanel().getRamSelector().getRamArguments()));
-        noFramework.launch("1.20.1", "0.16.9", NoFramework.ModLoader.FABRIC);
+        noFramework.launch("1.20.1", "0.16.13", NoFramework.ModLoader.FABRIC);
     }
     public static CrashReporter getReporter() {
         return reporter;

@@ -9,4 +9,4 @@
 ### https://apocalyptic-survival.wstr.fr/
 
 # Apocalyptic Survival Official Discord :
-### https://discord.gg/2HudfgQ9gK
+### https://discord.gg/hrqdBvnPAv
